@@ -1,6 +1,7 @@
 var express    = require("express"),
     mongoose   = require("mongoose"),
     request    = require("request"),
+    rp         = require("request-promise"),
     bodyParser = require("body-parser"),
     moment     = require("moment"),
     funct      = require("./public/js/funct"),
@@ -41,34 +42,35 @@ app.get("/", function(req, res) {
 app.get("/index", function(req, res) {
     /**Requesting NASA's Astronomy Picture of the Day**/
     var apod_url = "https://api.nasa.gov/planetary/apod?api_key=GoCHj7HTtRVOHSCDYzE1h2AMISrC6WCxi42c3dCD"
-    var apod_img_urls = [];
+    var promises = []
     var curr_moment = moment();
-    for(var i = 0; i < 10; i++) {
-        var appended_url = apod_url + "&date=" + curr_moment.subtract(i, "days").format("YYYY-MM-DD");
-        request(appended_url, function(error, reponse, body) {
-            if(!error && reponse.statusCode == 200) {
-                var img_json = JSON.parse(body);
-                if(img_json.media_type == "image") {
-                    var apod_promise = new Promise(function(resolve, reject){
+    for(var i = 0; i < 5; i++) {
+        var appended_url = apod_url + "&date=" + curr_moment.subtract(1, "days").format("YYYY-MM-DD");
+        promises.push(new Promise(function(resolve, reject) {
+            request(appended_url, function(err, response, body) {
+                if(!err && response.statusCode == 200) {
+                    var img_json = JSON.parse(body);
+                    if(img_json.media_type == "image") {
                         resolve(img_json.hdurl);
-                    });
-                    apod_img_urls.push(apod_promise);
+                    }
+                } else {
+                    reject(err);
+                    console.log(err);
                 }
-            } else {
-                console.log(error);
-            }
-        });
+            });
+        }));
     }
     /**************************************************/
-    
-    var url = "https://launchlibrary.net/1.3/launch?next=20&mode=verbose";
-    request(url, function(error, response, body) {
-       if(!error && response.statusCode == 200) {
-           var data = JSON.parse(body);
-           res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status});
-       } else {
-           console.log(error);
-       }
+    Promise.all(promises).then(function(apod_img_urls) {
+        var url = "https://launchlibrary.net/1.3/launch?next=20&mode=verbose";
+        request(url, function(err, response, body) {
+            if(!err && response.statusCode == 200) {
+                var data = JSON.parse(body);
+                res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status});
+            } else {
+                console.log(err);
+            }
+        });
     });
 });
 

@@ -5,16 +5,16 @@
 <div class="container-fluid carousel-container-fluid d-none d-sm-block">
     <div id="home-main-carousel" class="carousel slide" data-ride="carousel" data-interval="4000" data-pause="false">
         <div class="carousel-inner">
-        <% apod_img_urls.forEach(function(promise, index) { %>
+        <% apod_img_urls.forEach(function(url, index) { %>
         <div class="carousel-item <%= (index == 0 ? 'active' : '') %>">
-            <div class="w-100 home-image" style="background-image: url('<%= promise.then(function(url) {return url}); %>')"></div>
+            <div class="w-100 home-image" style="background-image: url('<%= url %>')"></div>
         </div>
         <% }); %>
         </div>
     </div>
 </div>
 
-<div class="carousel-text-overlay" style="background-image: url('<%= apod_img_urls[0].then(function(url) {return url}); %>')">
+<div class="carousel-text-overlay" style="background-image: url('<%= apod_img_urls[0] %>')">
     <h1 class="index-carousel-title">LaunchPad</h1>
     <h3 class="index-carousel-subtitle">The latest updates on upcoming launches.</h3>
     <p class="divider"></p>
