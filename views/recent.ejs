@@ -1,0 +1,312 @@
+<% include partials/header %>
+
+<div class="container">
+    <div id="past-launches-jumbotron" class="jumbotron"><!--Jumbotron-->
+        <h1 class="display-4">Past Launches!</h1>
+        <p class="lead">View all past rocket launches from the past month!</p>
+        <hr class="my-4">
+    </div><!--End Jumbotron-->
+    <div class="row recent-past-launches">
+        
+        <!--show most recent launch first-->
+        <%data.launches.slice().reverse().forEach(function(launch){ %>
+            <div class="col-12 col-lg-12 col-xl-6 col-sm-12 col-md-12">
+                    <div class="card launch-info-card">
+                        <div class="card-header text-center" style="background-color: <%=(launch.status == 3) ? "#cae6ff" : "#ffb8b8"%>">
+                            <strong><%= launch.name %></strong>
+                        </div> 
+                        <div class="card-block">
+                            <p><strong>Launch Time:</strong> <%= convertToLocalTime(launch.isostart) %></p>
+                            <% if(launch.lsp != null) { %>
+                                <p><strong>Agency:</strong> <%= launch.lsp.name %></p>
+                            <% } else { %>
+                                <p><strong>Agency Unavailable</strong></p>
+                            <% } %>
+                        <div class="card-footer text-center fluid">
+                            <button type="button" class="btn btn-primary upcominglaunchbutton" data-toggle="modal" data-target=".<%= launch.id %>">More Info.</button>
+                        </div>
+                            
+                            <!--Large Modal-->
+                            <div class="modal fade <%= launch.id %>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    
+                                    <!--Modal Header-->
+                                    <div class="modal-header" style="background-color: <%=(launch.status == 3) ? "#cae6ff" : "#ffb8b8"%>">
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><%= launch.name %></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <!--End Modal Header-->
+                                    
+                                    <!--Modal body-->
+                                    <div class="modal-body">
+                                        <!--Creating tabs-->
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview-<%=launch.id%>" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+                                            </li>                                        
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="mission-tab" data-toggle="tab" href="#mission-<%=launch.id%>" role="tab" aria-controls="mission" aria-selected="true">Mission</a>
+                                            </li>                                       
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="rocket-tab" data-toggle="tab" href="#rocket-<%=launch.id%>" role="tab" aria-controls="rocket" aria-selected="true">Rocket</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="map-tab" data-toggle="tab" href="#map-<%=launch.id%>" role="tab" aria-controls="map" aria-selected="true">Map</a>
+                                            </li>  
+                                            <div class="launch-status-wrap d-none d-lg-block">
+                                                <h5 class="launch-status" style="<%= status[launch.status].style %>" ><%= status[launch.status].status %></h5>
+                                            </div>
+                                        </ul>
+                                        <!--End tab creation-->
+                                        
+                                        <!--tab content-->
+                                        <div class="tab-content" id="myTabContent">
+                                            <!--id should be the same as href in navtab creation above-->
+                                            <div class="tab-pane fade show active" id="overview-<%=launch.id%>" role="tabpanel" aria-labelledby="overview-tab">
+                                                <p></p>
+                                               <div class="modal-info-line">
+                                                   <strong>Window Start: </strong><p><%= convertToLocalTime(launch.isostart) %></p>
+                                               </div>
+                                               <hr/>
+                                               <div class="modal-info-line">
+                                                   <strong>Window End: </strong><p><%= convertToLocalTime(launch.isoend) %></p>
+                                               </div>
+                                               <hr/>
+                                               <div id="launch-location" class="modal-info-line">
+                                                   <strong>Launch Location: </strong><p style="font-size: <%= (launch.location.pads[0].name.length <= 60) ? "auto" : "1.5vh" %>"><%= launch.location.pads[0].name %></p>
+                                               </div>
+                                               <hr/>
+                                               <% if(launch.lsp != null) { %>
+                                                   <div class="modal-info-line">
+                                                       <strong>Launch Service Provider: </strong><p><%= launch.lsp.name %></p>
+                                                   </div>
+                                                   <hr/>
+                                               <% } else { %>
+                                                   <p class="overview-lsp-unavailable"><strong>Launch Service Provider Unavailable</strong></p>
+                                                   <hr/>
+                                               <% } %>
+                                               <% if(launch.vidURLs.length == 0) { %>
+                                                   <button class="btn btn-secondary modal-button-disabled" disabled>No Recorded Stream</button>
+                                               <% } else { %>
+                                                   <a target="_blank" class="btn btn-secondary modal-button modal-button-past" href=<%=launch.vidURLs[0]%>><span>Recorded Stream</span></a>
+                                               <% } %>
+                                            </div>
+                                            
+                                            <div class="tab-pane fade" id="mission-<%=launch.id%>" role="tabpanel" aria-labelledby="mission-tab">
+                                                <p></p>
+                                                <% if(launch.missions.length > 0) { %>
+                                                   <div class="modal-info-line">
+                                                       <strong>Mission Name: </strong><p><%= launch.missions[0].name %></p>
+                                                   </div>
+                                                   <hr/>
+                                                   <div class="modal-info-line">
+                                                       <strong>Mission Type: </strong><p><%= launch.missions[0].typeName %></p>
+                                                   </div>
+                                                   <hr/>
+                                                   <div class="modal-info-line">
+                                                       <strong>Mission Agencies: </strong>
+                                                       <p>
+                                                       <% if(launch.missions[0].agencies != null) { %>
+                                                           <% if (launch.missions[0].agencies.length == 1) { %>
+                                                               <%= launch.missions[0].agencies[0].name %>
+                                                           <% } else { %>
+                                                           <% launch.missions[0].agencies.forEach(function(agency, index){ %>
+                                                           <% if(index == launch.missions[0].agencies.length - 1) { %>
+                                                               <%= agency.name %>
+                                                           <% } else { %>
+                                                               <%= agency.name %>, 
+                                                           <% } %>
+                                                           <% })}; %>       
+                                                       <% } else { %>
+                                                       Unavailable
+                                                       <% } %>
+                                                       </p>
+                                                   </div>
+                                                   <hr/>
+                                                   <p class="modal-mission-description"><strong>Mission Description: </strong><%= launch.missions[0].description %></p>
+                                                <% } else { %>
+                                                   <p>Mission information not available</p>
+                                                <% } %>
+                                            </div>
+                                            
+                                            <div class="tab-pane fade" id="rocket-<%=launch.id%>" role="tabpanel" aria-labelledby="rocket-tab">
+                                                <p></p>
+                                                <div class="modal-info-line">
+                                                    <strong>Rocket Family: </strong><p><%= launch.rocket.familyname %></p>
+                                                </div>
+                                                <hr/>
+                                                <div class="modal-info-line">
+                                                    <strong>Rocket Configuration: </strong><p><%= (launch.rocket.configuration == "") ? "Unavailable" : launch.rocket.configuration%></p>
+                                                </div>
+                                                <hr/>
+                                                <div class="modal-info-line">
+                                                    <strong>Rocket Agencies: </strong>
+                                                       <p>
+                                                       <% if(launch.rocket.agencies != null) { %>
+                                                           <% if (launch.rocket.agencies.length == 1) { %>
+                                                               <%= launch.rocket.agencies[0].name %>
+                                                           <% } else { %>
+                                                           <% launch.rocket.agencies.forEach(function(agency, index){ %>
+                                                           <% if(index == launch.rocket.agencies.length - 1) { %>
+                                                               <%= agency.name %>
+                                                           <% } else { %>
+                                                               <%= agency.name%><br>
+                                                           <% } %>
+                                                           <% })}; %>       
+                                                       <% } else { %>
+                                                       Unavailable
+                                                       <% } %>
+                                                       </p>
+                                                </div>
+                                                <hr/>
+                                                <% if (launch.rocket.wikiURL == null) { %>
+                                                    <button class="btn btn-secondary modal-button-disabled" disabled>Additional Info Unavailable</button>
+                                                <% } else { %>
+                                                    <a target="_blank" id="rocket-info-link" class="btn btn-secondary modal-button" href=<%=launch.rocket.wikiURL%>><span>Additional Info</span></a>
+                                                <% } %>
+                                            </div>
+                                            
+                                            <div class="tab-pane fade" id="map-<%=launch.id%>" role="tabpanel" aria-labelledby="map-tab">
+                                                <p class="latitude" style="display: none"><%= launch.location.pads[0].latitude %></p>
+                                                <p class="longitude" style="display: none"><%= launch.location.pads[0].longitude %></p>
+                                                <div class="index-modal-map" id="launch-map-<%=launch.id%>"></div>
+                                            </div>
+                                            
+                                        </div>
+                                        <!--end tab content-->
+                                    </div>
+                                    <!--End modal body-->
+                                    
+                                    <!--Modal footer-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary modalclosebutton" data-dismiss="modal">Close</button>
+                                    </div>
+                                    <!--End Modal Footer-->
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <!--End Modal-->
+                            
+                        </div>
+                    </div>
+                </div>
+        
+        <!--<div class="col-12 col-lg-12 col-xl-6 col-sm-12 col-md-12">-->
+        <!--    <div class="card" style="margin-bottom:20px;">-->
+                
+                
+        <!--        <div class="card-header text-center">-->
+        <!--            <strong><%=launch.name%></strong>-->
+        <!--        </div>-->
+        <!--        <div class="card-body">-->
+                   <!--List group-->
+        <!--            <div class="list-group">-->
+        <!--                <li class="list-group-item"><strong>Launch Date: </strong><%=convertToLocalTime(launch.isoend)%> </li>-->
+        <!--                <li class="list-group-item"><strong>Launched from: </strong><%=launch.location.name%> </li>-->
+        <!--                <li class="list-group-item"><strong>Mission type: </strong>-->
+                        
+        <!--                 </li>-->
+        <!--            </div>-->
+                    <!--end list group-->
+        <!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".<%=launch.id%>">More information</button>-->
+                    
+        <!--            <div class="modal fade <%=launch.id%>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">-->
+        <!--              <div class="modal-dialog modal-lg">-->
+        <!--                <div class="modal-content">-->
+        <!--                    <h5 class="modal-title text-center"><%=launch.name%></h5>-->
+        <!--                    <div class=container>-->
+                                <!--ul-->
+        <!--                        <ul class="nav nav-tabs" id="myTab" role="tablist">-->
+        <!--                                <li class="nav-item">-->
+        <!--                                    <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview-<%=launch.id%>" role="tab" aria-controls="overview" aria-selected="true">Overview</a>-->
+        <!--                                </li>                                        -->
+        <!--                                <li class="nav-item">-->
+        <!--                                    <a class="nav-link" id="mission-tab" data-toggle="tab" href="#mission-<%=launch.id%>" role="tab" aria-controls="mission" aria-selected="true">Mission</a>-->
+        <!--                                </li>                                       -->
+        <!--                                <li class="nav-item">-->
+        <!--                                    <a class="nav-link" id="rocket-tab" data-toggle="tab" href="#rocket-<%=launch.id%>" role="tab" aria-controls="rocket" aria-selected="true">Rocket</a>-->
+        <!--                                </li>-->
+        <!--                                <li class="nav-item">-->
+        <!--                                    <a class="nav-link" id="map-tab" data-toggle="tab" href="#map-<%=launch.id%>" role="tab" aria-controls="map" aria-selected="true">Map</a>-->
+        <!--                                </li>  -->
+        <!--                        </ul>-->
+                                <!--end of ul-->
+        <!--                        <div class="tab-content" id="myTabContent">-->
+        <!--                            <div class="tab-pane fade show active" id="overview-<%=launch.id%>" role="tabpanel" aria-labelledby="overview-tab">-->
+                                        <!--Start of carousel-->
+        <!--                                <div id="<%=launch.id%>" class="carousel" style="margin-top:20px;" data-ride="carousel">-->
+        <!--                                      <div class="col-lg-12">-->
+        <!--                                          <div class="carousel-inner">-->
+        <!--                                              <%var obj = {query: {portrait: 5, color: '333'},attr:{width:780, height:400} }%>-->
+        <!--                                         <div class="carousel-item active">-->
+        <!--                                             <div class="center">-->
+        <!--                                                  <%-/*embed(launch.vidURLs[0],obj)*/%>-->
+        <!--                                             </div>-->
+        <!--                                        </div>-->
+                                                  
+        <!--                                          <% launch.vidURLs.forEach(function(vid,i){ %>-->
+        <!--                                              <%if(i != 0){%>-->
+        <!--                                                  <div class="carousel-item">-->
+                                                              
+        <!--                                                     <%-embed(vid,obj)%>-->
+                                                             
+        <!--                                                    </div>-->
+        <!--                                              <% } %>-->
+                                                      
+        <!--                                             <% });%>-->
+
+        <!--                                             <a class="carousel-control-prev" href="#<%=launch.id%>" role="button" data-slide="prev">-->
+        <!--                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+        <!--                                                <span class="sr-only">Previous</span>-->
+        <!--                                             </a>-->
+                                           
+        <!--                                      <a class="carousel-control-next" href="#<%=launch.id%>" role="button" data-slide="next">-->
+        <!--                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+        <!--                                        <span class="sr-only">Next</span>-->
+        <!--                                      </a>-->
+        <!--                                      </div>-->
+        <!--                                 </div>-->
+        <!--                                </div>-->
+                                        <!--end of carousel-->
+        <!--                                    <p><%=launch.windowstart%></p>-->
+        <!--                                </div>-->
+  
+        <!--                                <div class="tab-pane fade" id="mission-<%=launch.id%>" role="tabpanel" aria-labelledby="mission-tab">-->
+        <!--                                     <% launch.missions.forEach(function(mission){ %>-->
+                                        
+        <!--                                       <p><%=mission.description%></p>-->
+        <!--                                <% });%>-->
+        <!--                                </div>-->
+                                        
+        <!--                                <div class="tab-pane fade" id="rocket-<%=launch.id%>" role="tabpanel" aria-labelledby="rocket-tab">-->
+        <!--                                     <p><%=launch.rocket.name%></p>-->
+                                        
+        <!--                                </div>-->
+                                        
+        <!--                                <div class="tab-pane fade" id="mission-<%=launch.id%>" role="tabpanel" aria-labelledby="mission-tab">-->
+                                             
+        <!--                                </div>-->
+        <!--                             </div>-->
+                            
+        <!--                       <div class="modal-footer">-->
+        <!--                            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+                         
+        <!--                </div>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+                <!--end of card-body-->
+            <!--end of card-->
+        <!--    </div>-->
+        <!--</div>-->
+        <!--end of col-lg-6-->
+        
+                
+    <% });%>
+<% include partials/footer %>

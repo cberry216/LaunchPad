@@ -1,0 +1,23 @@
+<% include partials/header %>
+
+<div class="background-image" style="background-image: url('<%= pod.hdurl %>')"></div>
+
+<div class="container">
+ 	<div class="row">
+ 		<div class="col-lg-12">
+ 			<div class="content">
+ 			    <div id="desktop" class="d-none d-sm-block">
+     			    <h1 id="titleDesktop">LaunchPad</h1>
+     			    <h3 id="subtitleDesktop">The latest updates on upcoming launches.</h3>
+ 			    </div>
+ 			    <div id="mobile" class="d-block d-sm-none">
+     			    <h1 id="titleMobile">LaunchPad</h1>
+     			    <h3 id="subtitleMobile">The latest updates on upcoming launches.</h3>
+ 			    </div>
+ 			    <a href="/index"><button class="btn btn-primary btn-lg explore">Explore</button></a>
+ 			</div>
+ 		</div>
+ 	</div>
+</div>
+
+<% include partials/footer %>

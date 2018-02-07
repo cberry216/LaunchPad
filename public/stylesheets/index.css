@@ -1,0 +1,310 @@
+/************************ Carousel Styling *************************/
+.carousel-container-fluid {
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+    padding: 0px 0px !important;
+}
+
+#home-page-carousel .carousel-inner {
+    border-radius: 0px !important;
+}
+
+.home-image {
+    width: 100px;
+    height: 100em;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+/*******************************************************************/
+
+/****************** Carousel Text Overlay Styling ******************/
+.carousel-text-overlay {
+    background-position: center;
+    position: relative;
+    top: -65%;
+    margin-bottom: -150px;
+    text-align: center;
+	color: white;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.carousel-text-overlay h1 {
+    font-size: 7.0em;
+}
+
+.carousel-text-overlay h3 {
+    font-size: 1.7em;
+    margin-bottom: 3%;
+}
+
+#countdown-container {
+    width: 45%;
+    margin: auto;
+    background-color: rgba(0,0,0,.5);
+    /*background-color: rgba(227, 119, 46, .40);*/
+    border-radius: 5px;
+    padding: 3px;
+    margin-bottom: 3%;
+}
+
+#countdown-timer {
+    font-family: "Share Tech Mono";
+    font-size: 2.7vw;
+}
+
+@media (max-width: 575px) {
+    .carousel-text-overlay {
+        top: 0px;
+        margin-bottom: auto;
+        background-size: cover;
+        padding: 45% 0px;
+    }
+    .carousel-text-overlay h1 {
+        font-size: 4.75em;
+    }
+    .carousel-text-overlay h3 {
+        font-size: 1.5em;
+    }
+    
+    #countdown-container {
+        width: 90%;   
+    }
+    
+    #countdown-mission-name {
+        font-size: 3.5vw !important;
+    }
+    
+    #countdown-timer {
+        font-size: 5.3vw;
+    }
+}
+
+@media (min-width: 576px) {
+    .carousel-text-overlay {
+        background-image: none !important;
+    }
+}
+
+/*******************************************************************/
+
+/*********************** Launch Card Styling ***********************/
+#upcomingHeader {
+    font-size: 2.4em;
+    margin-bottom: 3%;
+}
+
+.launch-info-card {
+    margin: 5px;
+    height: 15em;
+}
+
+.card-block p {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+.card-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.upcominglaunchbutton {
+    float: right;
+}
+
+.upcominglaunchbutton, .modalclosebutton, .modal-button {
+    display: block;
+    background-color: rgb(53, 58, 63);
+    border: none;
+    transition: 0.25s;
+    color: white;
+}
+
+.livestream-anchor, .livestream-anchor:hover {
+    text-decoration: none;
+}
+
+.modal-button {
+    text-align: left;
+}
+
+.upcominglaunchbutton:hover, .modalclosebutton:hover, .modal-button:hover {
+    background-color: rgba(227, 119, 46, .85);
+    color: white !important;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 
+                0 1px 10px 0 rgba(0, 0, 0, .12),
+                0 2px 4px -1px rgba(0, 0, 0, .2);
+    transition: 0.25s;
+}
+
+#modal-button-upcoming {
+    width: 18.5%;
+}
+
+#rocket-info-link {
+    width: 17.5%;
+}
+
+.modal-button-past {
+    width: 20%;
+}
+
+.modal-button span {
+    color: white;
+}
+
+@media (max-width: 991px) {
+    #modal-button-upcoming {
+        font-size: .85em;
+        width: 35%;
+    }
+    
+    #rocket-info-link {
+        font-size: .85em;
+        width: 33%;
+    }
+    
+    .modal-button-past {
+        width: 41.5%;
+    }
+}
+
+@media (max-width: 575px) {
+    .launch-info-card {
+        height: 17em;
+    }
+}
+
+@media (min-width: 576px) {
+    #upcomingHeader {
+        margin-top: -30%;
+    }
+    
+    #mobile-countdown-seperator {
+        display: none;
+    }
+}
+
+@-webkit-keyframes successFailFade {  
+  0% { background-color: #cae6ff; }
+  50% { background-color: #ffb8b8; }
+  100% { background-color: #cae6ff; }
+}
+
+.in-process-launch {
+    background-color: black;
+    -webkit-animation-name: successFailFade;
+    -webkit-animation-iteration-count: infinite;  
+    -webkit-animation-duration: 2s; 
+}
+/*******************************************************************/
+
+/************************** Modal Styling **************************/
+.index-upcoming-launches .modal-content, .recent-past-launches .modal-content {
+    min-height: 50vh;
+}
+
+.index-upcoming-launches a, .recent-past-launches a {
+    color: rgb(53, 58, 63) !important;
+}
+
+.launch-status-wrap {
+    margin-left: 39.9%
+}
+
+.launch-status {
+    color: #ffffff;
+    padding: 0px 7px;
+    padding-top: 3px;
+    width: 120px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.modal-info-line {
+    white-space: nowrap;
+    overflow-x: hidden;
+    margin-bottom: -18px;
+}
+
+.modal-info-line p, .modal-info-line strong {
+    display: inline-block;
+}
+
+.modal-info-line p {
+    float: right;
+    margin-top: 0;
+    text-align: right;
+}
+
+.modal-info-line strong {
+    margin-left: 10px;
+}
+
+.modal-info-line li {
+    list-style-type: none;
+    text-align: right;
+}
+
+.modal hr {
+    margin: 12px 0px;
+    border: solid 1px rgba(171,171,171,.5);
+}
+
+.index-modal-map {
+    height: 400px;
+    width: 100%;
+}
+
+.livestream-link, .livestream-link:hover, .livestream-link, .livestream-link:active, .livestream-link:focus {
+    color: rgb(227, 119, 46) !important;
+    text-decoration: underline;
+    transition: 0.5s;
+}
+
+@media (max-width: 575px) {
+    .modal-info-line {
+        font-size: .7em;
+    }
+    
+    .modal-mission-description {
+        font-size: .7em;
+    }
+    
+    .overview-lsp-unavailable {
+        font-size: .7em;
+    }
+}
+
+@media (max-width: 991px, min-width: 576px) {
+    .modal-info-line {
+        font-size: .85em;
+    }
+    
+    .modal-mission-description {
+        font-size: .85em;
+    }
+    
+    .overview-lsp-unavailable {
+        font-size: .85em;
+    }
+}
+/*******************************************************************/
+
+/************************* FAQs Styling ****************************/
+.faqs-text .question {
+    padding: 10px 5px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+.faqs-text .answer {
+    padding: 10px 5px;
+}
+/*******************************************************************/

@@ -1,0 +1,7 @@
+<%
+    convertToLocalTime = function(utc_time){
+         var utc_date = new moment(utc_time);
+         return utc_date.local().format('LLLL');
+    }
+%>
+
