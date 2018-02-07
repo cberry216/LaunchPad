@@ -43,13 +43,16 @@ app.get("/index", function(req, res) {
     var apod_url = "https://api.nasa.gov/planetary/apod?api_key=GoCHj7HTtRVOHSCDYzE1h2AMISrC6WCxi42c3dCD"
     var apod_img_urls = [];
     var curr_moment = moment();
-    for(var i = 0; i < 6; i++) {
+    for(var i = 0; i < 10; i++) {
         var appended_url = apod_url + "&date=" + curr_moment.subtract(i, "days").format("YYYY-MM-DD");
         request(appended_url, function(error, reponse, body) {
             if(!error && reponse.statusCode == 200) {
                 var img_json = JSON.parse(body);
                 if(img_json.media_type == "image") {
-                    apod_img_urls.push(img_json.hdurl);
+                    var apod_promise = new Promise(function(resolve, reject){
+                        resolve(img_json.hdurl);
+                    });
+                    apod_img_urls.push(apod_promise);
                 }
             } else {
                 console.log(error);
