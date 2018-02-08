@@ -230,23 +230,23 @@
         <div class="col-lg-4">
             <div id="twitter-container" class="media-container container">
                 <h5 id="twitter-section-title" class="media-section-title">Live Twitter Feed:</h5>
-                <% if(data.launches[0].lsp != null) { %>
-                    <span id="twitter-section-title-agency"><%=data.launches[0].lsp.name%></span>
+                <% if(data.launches[1].lsp != null) { %>
+                    <span id="twitter-section-title-agency"><%=data.launches[1].lsp.name%></span>
                 <% } else { %>
                     <span>Unavailable</span>
                 <% } %>
                 <% var hasTwitter = false; %>
-                <% for(var i = 0; i < data.launches[0].lsp.infoURLs.length; i++) { %>
-                    <% if (data.launches[0].lsp.infoURLs[i].indexOf("twitter") > 0) { %>
-                        <a class="twitter-timeline" data-lang="en" data-width="350" data-height="500" data-link-color="#2B7BB9" href="<%= data.launches[0].lsp.infoURLs[i] %>?ref_src=twsrc%5Etfw">Tweets by SpaceX</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <% for(var i = 0; i < data.launches[1].lsp.infoURLs.length; i++) { %>
+                    <% if (data.launches[1].lsp.infoURLs[i].indexOf("twitter") > 0) { %>
+                        <a class="twitter-timeline" data-lang="en" data-width="350" data-height="500" data-link-color="#2B7BB9" href="<%= data.launches[1].lsp.infoURLs[i] %>?ref_src=twsrc%5Etfw">Tweets by SpaceX</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                         <% hasTwitter = true; %>
                         <% break %>
                     <% } %>
                 <% }; %>
                 <div id="no-twitter-div" style="display: <%= (hasTwitter) ? "none" : ""%>">
-                    <h1 class="no-twitter-info">Twitter Unavailable For</h1>
+                    <h1 id="no-twitter-info-top" class="no-twitter-info">Twitter Unavailable For</h1>
                     <i id="no-twitter-icon" class="fa fa-ban" aria-hidden="true"></i>
-                    <h1 class="no-twitter-info">Launch Service Provider</h1>
+                    <h1 id="no-twitter-info-bottom" class="no-twitter-info">Launch Service Provider</h1>
                 </div>
             </div>
             <div id="news-container" class="media-container container" style="height: 500px; background-color: aqua"></div>

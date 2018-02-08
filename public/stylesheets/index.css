@@ -314,21 +314,56 @@
 }
 
 #no-twitter-div {
-    margin-top: 5%;
-    text-align: center;
     color: #777777;
     height: 500px;
     background-color: #eeeeee;
     border-radius: 3px;
+    opacity: .7;
+    position: relative;
 }
 
 .no-twitter-info {
-    font-size: 2vw;
+    font-size: 1.53em;
+    left: 10%;
+    right: 10%;
+}
+
+#no-twitter-info-top {
+    position: absolute;
+    top: 10px;
+}
+
+#no-twitter-info-bottom {
+    position: absolute;
+    bottom: 10px;
 }
 
 #no-twitter-icon {
-    font-size: 15em;
-    margin: 25% 0px;
+    font-size: 20em;
+    position: absolute;
+    top: 15%;
+    bottom: 10%;
+    left: 10%;
+    right: 10%;
+}
+
+@media(max-width: 1199px) {
+    #no-twitter-icon {
+        font-size: 15em;
+        top: 25%;
+        left: 13%;
+        right: 13%;
+    }
+    
+    .no-twitter-info {
+        font-size: 1.25em;
+    }
+}
+
+@media(max-width: 991px) {
+    #twitter-container {
+        display: none;
+    }
 }
 /*******************************************************************/
 
