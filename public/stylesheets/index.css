@@ -297,6 +297,41 @@
 }
 /*******************************************************************/
 
+/********************* News + Twitter Styling **********************/
+.media-container {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.media-container h5, .media-container span {
+    color: #777777;
+}
+
+#twitter-container {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#no-twitter-div {
+    margin-top: 5%;
+    text-align: center;
+    color: #777777;
+    height: 500px;
+    background-color: #eeeeee;
+    border-radius: 5px;
+}
+
+.no-twitter-info {
+    font-size: 2vw;
+}
+
+#no-twitter-icon {
+    font-size: 15em;
+    margin: 25% 0px;
+}
+/*******************************************************************/
+
 /************************* FAQs Styling ****************************/
 .faqs-text .question {
     padding: 10px 5px;
