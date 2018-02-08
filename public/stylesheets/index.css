@@ -300,7 +300,7 @@
 /********************* News + Twitter Styling **********************/
 .media-container {
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 5px;
 }
 
@@ -319,7 +319,7 @@
     color: #777777;
     height: 500px;
     background-color: #eeeeee;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .no-twitter-info {
