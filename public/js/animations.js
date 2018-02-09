@@ -46,7 +46,7 @@ function main() {
     var item = $(this);
     var src = item.find($(".no-show-source-name")).html();
     var date = moment(item.find($(".no-show-date")).html());
-    $(".source-name-and-date").html(src + " | " + date.fromNow());
+    item.find($(".source-name-and-date")).html(src + " | " + date.fromNow());
   });
 }
 
