@@ -256,6 +256,9 @@
                         <a target="_blank" class="news-article-item" href="<%= story.url %>">
                             <div class="news-article-image" style="background-image: url(<%= story.urlToImage %>)"></div>
                             <h4 class="news-article-title"><%= story.title %></h4>
+                            <p class="no-show-source-name" style="display: none"><%= story.source.name %></p>
+                            <p class="no-show-date" style="display: none"><%= story.publishedAt %></p>
+                            <h5 class="source-name-and-date"></h5>
                         </a>
                     <% }) %>
                 </div>

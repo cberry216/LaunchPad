@@ -41,6 +41,13 @@ function main() {
   blastoff = moment($('#next-launch-iso-date').html());
   update();
   setInterval(update, 1000);
+  
+  $(".news-article-item").each(function() {
+    var item = $(this);
+    var src = item.find($(".no-show-source-name")).html();
+    var date = moment(item.find($(".no-show-date")).html());
+    $(".source-name-and-date").html(src + " | " + date.fromNow());
+  });
 }
 
 $(document).ready(main);

@@ -63,7 +63,7 @@ app.get("/index", function(req, res) {
     /**************************************************/
     Promise.all(promises).then(function(apod_img_urls) {
         var url = "https://launchlibrary.net/1.3/launch?next=20&mode=verbose";
-        var news = "https://newsapi.org/v2/top-headlines?q=space&apiKey=db9a57734ebb4001abec3f3001c56a58"
+        var news = "https://newsapi.org/v2/top-headlines?category=science&country=us&q=space&apiKey=db9a57734ebb4001abec3f3001c56a58"
         request(url, function(err, response, body) {
             if(!err && response.statusCode == 200) {
                 var data = JSON.parse(body);
