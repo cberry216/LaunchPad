@@ -249,7 +249,16 @@
                     <h1 id="no-twitter-info-bottom" class="no-twitter-info">Launch Service Provider</h1>
                 </div>
             </div>
-            <!--<div id="news-container" class="media-container container" style="height: 500px; background-color: aqua"></div>-->
+            <div id="news-container" class="media-container container">
+                <h5 id="news-section-title">Top Space Headlines</h5>
+                <div id="scrollable-news-section">
+                    <% headlines.articles.forEach(function(story) { %>
+                        <div class="news-article-item">
+                            <div class="news-article-image" style="background-image: url(<%= story.urlToImage %>)"></div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
         </div>
     </div>
 </div>

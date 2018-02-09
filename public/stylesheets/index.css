@@ -297,7 +297,7 @@
 }
 /*******************************************************************/
 
-/********************* News + Twitter Styling **********************/
+/************************* Twitter Styling *************************/
 .media-container {
     background-color: #ffffff;
     border-radius: 3px;
@@ -364,6 +364,29 @@
     #twitter-container {
         display: none;
     }
+}
+/*******************************************************************/
+
+/************************* News Styling ****************************/
+#news-container {
+    height: 500px;    
+}
+
+#scrollable-news-section {
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.news-article-item {
+    margin: 10px 0px;
+}
+
+.news-article-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 3px;
+    background-position: center;
+    background-size: cover;
 }
 /*******************************************************************/
 

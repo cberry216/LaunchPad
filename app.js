@@ -22,9 +22,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var status = {
     "1": {"style": "background-color: #48c14a", "status": "GO"},
-    "2": {"style": "background-color: #c14848", "status": "NO GO"},
+    "2": {"style": "background-color: #d8e500", "status": "NO GO"},
     "3": {"style": "background-color: #4868c1", "status": "SUCCESS"},
-    "4": {"style": "background-color: #000000", "status": "FAILED"}
+    "4": {"style": "background-color: #e50000", "status": "FAILED"}
 }
 
 app.get("/", function(req, res) {
@@ -63,10 +63,16 @@ app.get("/index", function(req, res) {
     /**************************************************/
     Promise.all(promises).then(function(apod_img_urls) {
         var url = "https://launchlibrary.net/1.3/launch?next=20&mode=verbose";
+        var news = "https://newsapi.org/v2/top-headlines?q=space&apiKey=db9a57734ebb4001abec3f3001c56a58"
         request(url, function(err, response, body) {
             if(!err && response.statusCode == 200) {
                 var data = JSON.parse(body);
-                res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status});
+                request(news, function(err, response, body) {
+                    if(!err && response.statusCode == 200) {
+                        var headlines = JSON.parse(body);
+                        res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines});
+                    } 
+                });
             } else {
                 console.log(err);
             }
