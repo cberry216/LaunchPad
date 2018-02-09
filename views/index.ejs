@@ -253,9 +253,10 @@
                 <h5 id="news-section-title">Top Space Headlines</h5>
                 <div id="scrollable-news-section">
                     <% headlines.articles.forEach(function(story) { %>
-                        <div class="news-article-item">
+                        <a target="_blank" class="news-article-item" href="<%= story.url %>">
                             <div class="news-article-image" style="background-image: url(<%= story.urlToImage %>)"></div>
-                        </div>
+                            <h4 class="news-article-title"><%= story.title %></h4>
+                        </a>
                     <% }) %>
                 </div>
             </div>
