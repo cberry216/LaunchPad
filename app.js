@@ -67,6 +67,20 @@ app.get("/index", function(req, res) {
         request(url, function(err, response, body) {
             if(!err && response.statusCode == 200) {
                 var data = JSON.parse(body);
+                /* Filtering out Chinese Launches */
+                // var filter_data = data.launches.filter(function(launch) {
+                //     if(launch.lsp != null) {
+                //         if (launch.lsp.id == 88) {
+                //             return false;
+                //         } else {
+                //             return true;
+                //         }
+                //     } else {
+                //         return true;
+                //     }
+                // })
+                // data = {launches: filter_data};
+                /* End filtering out Chinese Launches */
                 request(news, function(err, response, body) {
                     if(!err && response.statusCode == 200) {
                         var headlines = JSON.parse(body);
@@ -105,10 +119,31 @@ app.get("/recent", function(req, res){
     // var pastDate = year-1+"-"+funct.lastMonth(month)+"-"+day;
     // var url = "https://launchlibrary.net/1.3/launch?startdate="+fullDate+"&enddate="+pastDate+"&mode=verbose";
     
+    var promises = [];
+    var offset = 0;
+    var count_return;
+    
     var endDate = moment().subtract(1, "days");
-    var startDate = moment().subtract(3, "months").subtract(1, "days");
+    var startDate = moment().subtract(1, "months").subtract(1, "days");
     
     /* TODO: Make Launch Library display all launches.*/
+    
+    do {
+        var url = "https://launchlibrary.net/1.3/launch?startdate="+startDate.format("YYYY-MM-DD")+"&enddate="+endDate.format("YYYY-MM-DD")+"&offset="+offset+"&mode=verbose";
+        promises.concat(new Promise(function(resolve, reject) {
+            request(url, function(err, response, body) {
+               if(!err && response.statusCode == 200) {
+                   var data = JSON.parse(body);
+                   count_return = data.count;
+                   offset += count_return;
+                   resolve(data.launches);
+               } else {
+                   reject(err);
+                   console.log(err);
+               }
+            });
+        }));
+    } while (count_return == 10);
 
     var url = "https://launchlibrary.net/1.3/launch?startdate="+startDate.format("YYYY-MM-DD")+"&enddate="+endDate.format("YYYY-MM-DD")+"&mode=verbose";
     
