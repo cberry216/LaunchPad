@@ -32,7 +32,7 @@ app.get("/", function(req, res) {
    request(url, function(error, response, body) {
       if(!error && response.statusCode == 200) {
           var pod = JSON.parse(body);
-          res.render("home", {pod: pod});
+          res.render("home", {pod: pod, page: "splash"});
       } else {
           console.log(error);
       }
@@ -84,7 +84,7 @@ app.get("/index", function(req, res) {
                 request(news, function(err, response, body) {
                     if(!err && response.statusCode == 200) {
                         var headlines = JSON.parse(body);
-                        res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines});
+                        res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines, page: "index"});
                     } 
                 });
             } else {
@@ -111,97 +111,10 @@ app.get("/test", function(req, res) {
 });
 
 app.get("/recent", function(req, res){
-    // var date = new Date();
-    // var fullDate = funct.convertDate(date);
-    // var year = date.getFullYear();
-    // var month = date.getMonth() + 1;
-    // var day = date.getUTCDate();
-    // var pastDate = year-1+"-"+funct.lastMonth(month)+"-"+day;
-    // var url = "https://launchlibrary.net/1.3/launch?startdate="+fullDate+"&enddate="+pastDate+"&mode=verbose";
-    
-    // var promises = [];
-    // var offset = 0;
-    // var count_return = 0;
-    
-    // var endDate = moment().subtract(1, "days");
-    // var startDate = moment().subtract(1, "months").subtract(1, "days");
-    
-    /* TODO: Make Launch Library display all launches.*/
-    
-    // do {
-    //     console.log("top count_return: " + count_return);
-    //     var url = "https://launchlibrary.net/1.3/launch?startdate="+startDate.format("YYYY-MM-DD")+"&enddate="+endDate.format("YYYY-MM-DD")+"&offset="+offset+"&mode=verbose";
-    //     var past_launch_promise = new Promise(function(resolve, reject) {
-    //       request(url, function(err, response, body) {
-    //           if(!err && response.statusCode == 200) {
-    //               var data = JSON.parse(body);
-    //               resolve(data);
-    //           } else {
-    //               reject(Error(err));
-    //           }
-    //       });
-    //     }).then(function(result) {
-    //         count_return = result.count;
-    //         offset = count_return;
-    //         promises.concat(result.launches);
-    //         console.log("inn count_return: " + count_return);
-    //     },      function(err) {
-    //         console.log(err);
-    //     });
-    // } while(count_return >= 10);
-    
-    // do {
-    //     console.log("Here");
-    //     var url = "https://launchlibrary.net/1.3/launch?startdate="+startDate.format("YYYY-MM-DD")+"&enddate="+endDate.format("YYYY-MM-DD")+"&offset="+offset+"&mode=verbose";
-    //     promises.push(new Promise(function(resolve, reject) {
-    //         request(url, function(err, response, body) {
-    //           if(!err && response.statusCode == 200) {
-    //               var data = JSON.parse(body);
-    //               count_return = data.count;
-    //               console.log("2: " +count_return);
-    //               offset += count_return;
-    //               resolve(data.launches);
-    //           } else {
-    //               reject(err);
-    //               console.log(err);
-    //           }
-    //         });
-    //     }));
-    //     console.log("3: " + count_return);
-    // } while (count_return >= 10);
-
-    // var url = "https://launchlibrary.net/1.3/launch?startdate="+startDate.format("YYYY-MM-DD")+"&enddate="+endDate.format("YYYY-MM-DD")+"&mode=verbose";
-    
-    // request(url, function(err, response, body) {
-    //   if(!err && response.statusCode == 200){
-    //       var data = JSON.parse(body);
-    //       res.render("recent",{data:data, embed:embed, status:status});
-           
-    //   } else {
-    //       console.log(err);
-    //   }
-    // });
-    
-    // Promise.all(promises).then(function(past_launches) {
-    //     var launch_array = [];
-    //     console.log(past_launches.length);
-    //     var data = {launches: past_launches[0]};
-    //     res.render("recent",{data:data, embed:embed, status:status});
-    // });
-    
-    // res.render("recent",{data:promises, embed:embed, status:status});
-    // var launches = getLaunches().then((launches) => launches);
-    
-    // launches.then(function() {
-    //     var data = {launches: launches};
-    //     console.log(data);
-    //     res.render("recent", {data: data, embed: embed, status: status})
-    // });
     
     getLaunches().then(function(launches) {
         var data = {launches: launches};
-        console.log(data);
-        res.render("recent", {data: data, embed: embed, status: status})
+        res.render("recent", {data: data, embed: embed, status: status, page: "recent"})
     })
     
 });
@@ -229,7 +142,7 @@ app.get("/secret", function(req, res) {
 });
 
 app.get("/faqs", function(req, res) {
-   res.render("faqs"); 
+   res.render("faqs", {page: "faqs"}); 
 });
 
 app.listen(process.env.PORT, process.env.IP, function() {
@@ -238,24 +151,6 @@ app.listen(process.env.PORT, process.env.IP, function() {
 
 /************* Functions *************/ 
 
-// function getLaunches(startDate = moment().subtract(1, 'months').subtract(1, 'days'), endDate = moment(startDate).add(1, "months"), offset = 0, launches = []) {
-//   const url = `https://launchlibrary.net/1.3/launch?startdate=${moment(startDate).format('YYYY-MM-DD')}&enddate=${moment(endDate).format('YYYY-MM-DD')}&offset=${offset}&mode=verbose`;
-
-//   return request.get({
-//     uri: url,
-//     json: true
-//   }).then((response) => {
-//     const total = response.total;
-//     launches.push(...response.launches);
-
-//     if (launches.length < total) {
-//       const nextOffset = offset + response.count;
-//       return getLaunches(startDate, endDate, nextOffset, launches);
-//     }
-
-//     return launches;
-//   });
-// }
 function getLaunches(startDate = moment().subtract(1, 'months').subtract(1, 'days'), endDate = moment(), offset = 0, launches = []) {
     const url = "https://launchlibrary.net/1.3/launch?startdate=" + startDate.format("YYYY-MM-DD") + "&enddate=" + endDate.format("YYYY-MM-DD") + "&offset=" + offset + "&mode=verbose";
     
