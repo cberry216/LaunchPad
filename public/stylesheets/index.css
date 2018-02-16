@@ -430,3 +430,27 @@
     padding: 10px 5px;
 }
 /*******************************************************************/
+
+/********************* Recent Launches Styling *********************/
+#past-launches-jumbotron {
+    padding-bottom: 1px;
+}
+
+.jumbo-subheader {
+    color: #777777;
+}
+
+#show-launch-from {
+    font-size: 1.25em;
+}
+
+#launch-window {
+    font-size: 2em;
+}
+
+@media(max-width: 575px) {
+    #launch-window {
+        font-size: 1.5em;
+    }
+}
+/*******************************************************************/

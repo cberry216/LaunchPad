@@ -113,7 +113,10 @@ app.get("/test", function(req, res) {
 app.get("/recent", function(req, res){
     
     getLaunches().then(function(launches) {
-        var data = {launches: launches};
+        var data = {launches: launches.filter(launch => moment().isAfter(moment(launch.isostart))),
+                    from_time: moment().subtract(1, "months").subtract(1, "days"),
+                    to_time: moment()
+        };
         res.render("recent", {data: data, embed: embed, status: status, page: "recent"})
     })
     
