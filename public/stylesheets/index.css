@@ -485,7 +485,18 @@
 /*******************************************************************/
 
 /************************ Contact Styling **************************/
-.contact-link, .contact-link:hover {
+#contact-container {
+    height: 60%;
+}
+
+.contact-link {
+    font-size: 1.5em;
+    position: relative !important;
+}
+
+.contact-anchor {
+    position: relative !important;
+    z-index: 100 !important;
 }
 /*******************************************************************/
 
