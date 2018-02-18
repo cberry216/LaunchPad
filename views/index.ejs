@@ -1,7 +1,5 @@
 <% include partials/header %>
 
-
-
 <div class="container-fluid carousel-container-fluid d-none d-sm-block">
     <div id="home-main-carousel" class="carousel slide" data-ride="carousel" data-interval="4000" data-pause="false">
         <div class="carousel-inner">
@@ -38,7 +36,6 @@
         <div class="col-lg-8">
             <% data.launches.forEach(function(launch) { %>
                 <div class="card-col">
-                <!--<div class="col-12 col-lg-12 col-xl-6 col-sm-12 col-md-12">-->
                     <div class="card launch-info-card">
                         <div class="card-header text-center" style="background-color: <%=(launch.status == 1) ? "#c5ffb8" : "#feffb8"%>">
                             <strong><%= launch.name %></strong>
@@ -227,6 +224,7 @@
                     </div>
                 </div>
             <% }); %>
+            <button class="btn btn-secondary" id="load-more">Load More</button>
         </div>
         <div class="col-lg-4">
             <div id="twitter-container" class="media-container container">

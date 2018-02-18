@@ -12,9 +12,8 @@ html {
     background-attachment: fixed;
     background-position: center;
     background-image: url("/images/circuits.png");
-    opacity: 0.10;
+    opacity: 0.1;
     position: fixed;
-    overflow: hidden;
     filter: hue-rotate(90deg);
 }
 

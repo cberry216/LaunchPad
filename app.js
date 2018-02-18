@@ -148,6 +148,14 @@ app.get("/faqs", function(req, res) {
    res.render("faqs", {page: "faqs"}); 
 });
 
+app.get("/about", function(req, res) {
+   res.render("about", {page: "about"}); 
+});
+
+app.get("/contact", function(req, res) {
+    res.render("contact", {page: "contact"});
+})
+
 app.listen(process.env.PORT, process.env.IP, function() {
    console.log("Server Started"); 
 });

@@ -42,11 +42,21 @@ function main() {
   update();
   setInterval(update, 1000);
   
+  /* Populate News With Source And Time of Writing */
   $(".news-article-item").each(function() {
     var item = $(this);
     var src = item.find($(".no-show-source-name")).html();
     var date = moment(item.find($(".no-show-date")).html());
     item.find($(".source-name-and-date")).html(src + " | " + date.fromNow());
+  });
+  
+  /* Drop Down More Launches */
+  $(".card-col").hide();
+  $(".card-col").slice(0,4).show();
+  
+  $("#load-more").on("click", function(e) {
+    e.preventDefault();
+    $(".card-col:hidden").slice(0,4).slideDown();
   });
 }
 

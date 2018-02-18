@@ -99,7 +99,7 @@
 
 .launch-info-card {
     margin: 5px;
-    height: 15em;
+    height: 15.99em;
 }
 
 .card-block p {
@@ -202,6 +202,23 @@
     -webkit-animation-name: successFailFade;
     -webkit-animation-iteration-count: infinite;  
     -webkit-animation-duration: 2s; 
+}
+
+#load-more {
+    width: 100%;
+    margin: 5px 0px 20px 0px;
+    border: none;
+    transition: 0.25s;
+}
+
+#load-more:hover {
+    background-color: rgba(227, 119, 46, .85);
+    color: white !important;
+    border: none;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 
+                0 1px 10px 0 rgba(0, 0, 0, .12),
+                0 2px 4px -1px rgba(0, 0, 0, .2);
+    transition: 0.25s;
 }
 /*******************************************************************/
 
@@ -370,7 +387,8 @@
 
 /************************* News Styling ****************************/
 #news-container {
-    height: 500px;    
+    height: 500px;
+    margin-bottom: 5%;
 }
 
 #scrollable-news-section {
@@ -452,5 +470,50 @@
     #launch-window {
         font-size: 1.5em;
     }
+}
+/*******************************************************************/
+
+/************************* About Styling ***************************/
+#about-container {
+    height: 60%;
+}
+
+.about-text {
+    text-indent: 50px;
+    font-size: 1.5em;
+}
+/*******************************************************************/
+
+/************************ Contact Styling **************************/
+.contact-link, .contact-link:hover {
+}
+/*******************************************************************/
+
+/************************* Footer Styling **************************/
+.footer {
+    height: 10em;
+    margin-top: 10%;
+    background-color: #353a3f;
+    position: relative;
+    
+}
+
+#footer-site-title, #footer-brand {
+    font-size: 1em;
+}
+
+#footer-row {
+    margin-left: 10px;
+}
+
+.footer-title {
+    padding-top: 15px;
+    color: white;
+    font-size: .7em;
+}
+
+.footer-link, .footer-link:hover, .footer-link:active, .footer-link:focus {
+    text-decoration: none;
+    color: #ffffff;
 }
 /*******************************************************************/
