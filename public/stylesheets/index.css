@@ -527,4 +527,14 @@
     text-decoration: none;
     color: #ffffff;
 }
+
+@media(max-width: 575px) {
+    #footer-site-title {
+        font-size: .5em;
+    }
+    
+    .footer-title {
+        font-size: .5em;
+    }
+}
 /*******************************************************************/
