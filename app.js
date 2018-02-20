@@ -40,58 +40,91 @@ app.get("/", function(req, res) {
 });
 
 app.get("/index", function(req, res) {
-    /**Requesting NASA's Astronomy Picture of the Day**/
+    // /**Requesting NASA's Astronomy Picture of the Day**/
+    // var apod_url = "https://api.nasa.gov/planetary/apod?api_key=GoCHj7HTtRVOHSCDYzE1h2AMISrC6WCxi42c3dCD"
+    // var promises = []
+    // var curr_moment = moment();
+    // for(var i = 0; i < 5; i++) {
+    //     var appended_url = apod_url + "&date=" + curr_moment.subtract(1, "days").format("YYYY-MM-DD");
+    //     promises.push(new Promise(function(resolve, reject) {
+    //         request(appended_url, function(err, response, body) {
+    //             if(!err && response.statusCode == 200) {
+    //                 var img_json = JSON.parse(body);
+    //                 if(img_json.media_type == "image") {
+    //                     resolve(img_json.hdurl);
+    //                 }
+    //             } else {
+    //                 reject(err);
+    //                 console.log(err);
+    //             }
+    //         });
+    //     }));
+    // }
+    // /**************************************************/
+    // Promise.all(promises).then(function(apod_img_urls) {
+    //     var url = "https://launchlibrary.net/1.3/launch?next=20&mode=verbose";
+    //     var news = "https://newsapi.org/v2/top-headlines?category=science&country=us&q=space&apiKey=db9a57734ebb4001abec3f3001c56a58"
+    //     request(url, function(err, response, body) {
+    //         if(!err && response.statusCode == 200) {
+    //             var data = JSON.parse(body);
+    //             /* Filtering out Chinese Launches */
+    //             // var filter_data = data.launches.filter(function(launch) {
+    //             //     if(launch.lsp != null) {
+    //             //         if (launch.lsp.id == 88) {
+    //             //             return false;
+    //             //         } else {
+    //             //             return true;
+    //             //         }
+    //             //     } else {
+    //             //         return true;
+    //             //     }
+    //             // })
+    //             // data = {launches: filter_data};
+    //             /* End filtering out Chinese Launches */
+    //             request(news, function(err, response, body) {
+    //                 if(!err && response.statusCode == 200) {
+    //                     var headlines = JSON.parse(body);
+    //                     res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines, page: "index"});
+    //                 } else {
+    //                     console.log(err);
+    //                 }
+    //             });
+    //         } else {
+    //             console.log(err);
+    //         }
+    //     });
+    // });
+    /********************* WORKING NOW *********************/
     var apod_url = "https://api.nasa.gov/planetary/apod?api_key=GoCHj7HTtRVOHSCDYzE1h2AMISrC6WCxi42c3dCD"
-    var promises = []
     var curr_moment = moment();
+    var apod_img_urls = [];
     for(var i = 0; i < 5; i++) {
         var appended_url = apod_url + "&date=" + curr_moment.subtract(1, "days").format("YYYY-MM-DD");
-        promises.push(new Promise(function(resolve, reject) {
-            request(appended_url, function(err, response, body) {
-                if(!err && response.statusCode == 200) {
-                    var img_json = JSON.parse(body);
-                    if(img_json.media_type == "image") {
-                        resolve(img_json.hdurl);
-                    }
-                } else {
-                    reject(err);
-                    console.log(err);
-                }
-            });
-        }));
+        request(appended_url, function(err, response, body) {
+           if(!err && response.statusCode == 200) {
+               var info = JSON.parse(body);
+               if(info.media_type == "image") {
+                    apod_img_urls.push(info.hdurl)
+               }
+           } 
+        });
     }
-    /**************************************************/
-    Promise.all(promises).then(function(apod_img_urls) {
-        var url = "https://launchlibrary.net/1.3/launch?next=20&mode=verbose";
-        var news = "https://newsapi.org/v2/top-headlines?category=science&country=us&q=space&apiKey=db9a57734ebb4001abec3f3001c56a58"
-        request(url, function(err, response, body) {
+    var url = "https://launchlibrary.net/1.3/launch?next=20&mode=verbose";
+    var news = "https://newsapi.org/v2/top-headlines?category=science&country=us&q=space&apiKey=db9a57734ebb4001abec3f3001c56a58"
+    request(url, function(err, response, body) {
             if(!err && response.statusCode == 200) {
                 var data = JSON.parse(body);
-                /* Filtering out Chinese Launches */
-                // var filter_data = data.launches.filter(function(launch) {
-                //     if(launch.lsp != null) {
-                //         if (launch.lsp.id == 88) {
-                //             return false;
-                //         } else {
-                //             return true;
-                //         }
-                //     } else {
-                //         return true;
-                //     }
-                // })
-                // data = {launches: filter_data};
-                /* End filtering out Chinese Launches */
                 request(news, function(err, response, body) {
                     if(!err && response.statusCode == 200) {
                         var headlines = JSON.parse(body);
-                        res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines, page: "index"});
-                    } 
+                        res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines, page: "index"});    
+                    }
                 });
             } else {
                 console.log(err);
             }
-        });
     });
+    // res.render("index", {data: {launches: [{lsp: {infoURLs: []}, rocket: {familyname: ""}, missions: [], vidURLs: [], isostart: null, name: "", status: 1, location: {pads: [{name: ""}]}}]}, apod_img_urls: [], status: status, headlines: {articles: []}, page: "index"});
 });
 
 /*Allow; the use of moment.js inside ejs*/
