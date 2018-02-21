@@ -253,7 +253,7 @@
                 <div id="scrollable-news-section">
                     <% headlines.articles.forEach(function(story) { %>
                         <a target="_blank" class="news-article-item" href="<%= story.url %>">
-                            <div class="news-article-image" style="background-image: url(<%= story.urlToImage %>)"></div>
+                            <div class="news-article-image" style="background-image: url(<%= (story.urlToImage != null) ? story.urlToImage : "/images/no_image.png"%>)"></div>
                             <h4 class="news-article-title"><%= story.title %></h4>
                             <p class="no-show-source-name" style="display: none"><%= story.source.name %></p>
                             <p class="no-show-date" style="display: none"><%= story.publishedAt %></p>
