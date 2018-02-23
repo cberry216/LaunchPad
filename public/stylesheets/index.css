@@ -204,14 +204,15 @@
     -webkit-animation-duration: 2s; 
 }
 
-#load-more {
+#load-more, #past-load-more {
     width: 100%;
     margin: 5px 0px 20px 0px;
     border: none;
     transition: 0.25s;
+    z-index: 100;
 }
 
-#load-more:hover {
+#load-more:hover , #past-load-more:hover{
     background-color: rgba(227, 119, 46, .85);
     color: white !important;
     border: none;

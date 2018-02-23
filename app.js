@@ -147,7 +147,7 @@ app.get("/recent", function(req, res){
     
     getLaunches().then(function(launches) {
         var data = {launches: launches.filter(launch => moment().isAfter(moment(launch.isostart))),
-                    from_time: moment().subtract(1, "months").subtract(1, "days"),
+                    from_time: moment().subtract(3, "months").subtract(1, "days"),
                     to_time: moment()
         };
         res.render("recent", {data: data, embed: embed, status: status, page: "recent"})
@@ -195,7 +195,7 @@ app.listen(process.env.PORT, process.env.IP, function() {
 
 /************* Functions *************/ 
 
-function getLaunches(startDate = moment().subtract(1, 'months').subtract(1, 'days'), endDate = moment(), offset = 0, launches = []) {
+function getLaunches(startDate = moment().subtract(3, 'months').subtract(1, 'days'), endDate = moment(), offset = 0, launches = []) {
     const url = "https://launchlibrary.net/1.3/launch?startdate=" + startDate.format("YYYY-MM-DD") + "&enddate=" + endDate.format("YYYY-MM-DD") + "&offset=" + offset + "&mode=verbose";
     
     return rpn.get({uri: url, json: true}).then((response) => {

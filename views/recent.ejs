@@ -3,7 +3,7 @@
 <div class="container">
     <div id="past-launches-jumbotron" class="jumbotron"><!--Jumbotron-->
         <h1 class="display-4">Past Launches!</h1>
-        <p class="lead">View all past rocket launches from the past month!</p>
+        <p class="lead">View all past rocket launches from the past 3 months!</p>
         <hr class="my-4">
         <h5 class="jumbo-subheader" id="show-launch-from">Showing Launches From:</h5>
         <p class="jumbo-subheader" id="launch-window"><%=data.from_time.format("MMM Do, YYYY")%> - <%=data.to_time.format("MMM Do, YYYY")%></p>
@@ -12,7 +12,7 @@
         
         <!--show most recent launch first-->
         <%data.launches.slice().reverse().forEach(function(launch){ %>
-            <div class="col-12 col-lg-12 col-xl-6 col-sm-12 col-md-12">
+            <div class="col-12 col-lg-12 col-xl-6 col-sm-12 col-md-12 past-card-col">
                     <div class="card launch-info-card">
                         <div class="card-header text-center" style="background-color: <%=(launch.status == 3) ? "#cae6ff" : "#ffb8b8"%>">
                             <strong><%= launch.name %></strong>
@@ -309,8 +309,8 @@
         <!--</div>-->
         <!--end of col-lg-6-->
         
-                
         <% });%>
+        <button class="btn btn-secondary" id="past-load-more">Load More</button>
     </div>
 </div>
 

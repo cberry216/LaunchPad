@@ -58,6 +58,14 @@ function main() {
     e.preventDefault();
     $(".card-col:hidden").slice(0,4).slideDown();
   });
+  
+  $(".past-card-col").hide();
+  $(".past-card-col").slice(0,8).show();
+  
+  $("#past-load-more").on("click", function(e) {
+    e.preventDefault();
+    $(".past-card-col:hidden").slice(0,8).slideDown();
+  });
 }
 
 $(document).ready(main);
