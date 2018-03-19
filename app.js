@@ -185,11 +185,11 @@ app.get("/about", function(req, res) {
    res.render("about", {page: "about"}); 
 });
 
-app.get("/contact", function(req, res) {
+/*app.get("/contact", function(req, res) {
     res.render("contact", {page: "contact"});
-})
+})*/
 
-app.listen(process.env.PORT, process.env.IP, function() {
+app.listen(55555, '107.180.50.171', function() {
    console.log("Server Started"); 
 });
 
