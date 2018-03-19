@@ -189,7 +189,7 @@ app.get("/about", function(req, res) {
     res.render("contact", {page: "contact"});
 })*/
 
-app.listen(80, '107.180.50.171', function() {
+app.listen(80, '0.0.0.0', function() {
    console.log("Server Started"); 
 });
 
