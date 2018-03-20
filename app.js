@@ -185,17 +185,13 @@ app.get("/about", function(req, res) {
    res.render("about", {page: "about"}); 
 });
 
-/*app.get("/contact", function(req, res) {
+app.get("/contact", function(req, res) {
     res.render("contact", {page: "contact"});
-})*/
-
-// app.listen(process.env.PORT, process.env.IP, function() {
-//   console.log("Server Started"); 
-// });
-app.set('port', (process.env.PORT || 5000));
-app.listen(app.get('port'), function() {
-    console.log("Server Started");
 })
+
+app.listen(process.env.PORT, process.env.IP, function() {
+   console.log("Server Started"); 
+});
 
 /************* Functions *************/ 
 
