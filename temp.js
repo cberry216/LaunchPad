@@ -99,7 +99,7 @@ app.get("/index", function(req, res) {
     //     });
     // });
     /********************* WORKING NOW *********************/
-    /*var apod_url = "https://api.nasa.gov/planetary/apod?api_key=GoCHj7HTtRVOHSCDYzE1h2AMISrC6WCxi42c3dCD"
+    var apod_url = "https://api.nasa.gov/planetary/apod?api_key=GoCHj7HTtRVOHSCDYzE1h2AMISrC6WCxi42c3dCD"
     var curr_moment = moment();
     var apod_img_urls = [];
     for(var i = 0; i < 5; i++) {
@@ -112,28 +112,9 @@ app.get("/index", function(req, res) {
                }
            }
         });
-    }*/
+    }
 
-    let endDate = moment().format('YYYY-MM-DD');
-    let startDate = moment().subtract(5, 'days').format('YYYY-MM-DD');
-    let apodURL = "https://api.nasa.gov/planetary/apod?api_key=GoCHj7HTtRVOHSCDYzE1h2AMISrC6WCxi42c3dCD";
-    apodURL = apodURL + '&start_date=' + startDate + '&end_date=' + endDate;
-
-//    setTimeout(function(){
-
-    var apod_urls;
-    var apod_img_urls = [];
-
-    /*request(apodURL, function(err, response, body) {
-	if(!err && response.statusCode == 200) {
-	    apod_urls = JSON.parse(body);
-	    for(var i = 0; i < apod_urls.length; i++) {
-                if(apod_urls[i].media_type = 'image') {
-                    apod_img_urls.push(apod_urls[i].hdurl);
-                }
-            }
-	}
-    });*/
+    setTimeout(function(){
 
     var url = "https://launchlibrary.net/1.4/launch?next=20&mode=verbose";
     var news = "https://newsapi.org/v2/top-headlines?category=science&country=us&q=space&apiKey=db9a57734ebb4001abec3f3001c56a58"
@@ -143,18 +124,7 @@ app.get("/index", function(req, res) {
                 request(news, function(err, response, body) {
                     if(!err && response.statusCode == 200) {
                         var headlines = JSON.parse(body);
-			request(apodURL, function(err, response, body) {
-       			    if(!err && response.statusCode == 200) {
-            		        apod_urls = JSON.parse(body);
-                                for(var i = 0; i < apod_urls.length; i++) {
-                                    if(apod_urls[i].media_type == 'image') {
-                                        apod_img_urls.push(apod_urls[i].hdurl);
-                 		    }
-            			}
-			    res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines, page: "index"});
-        		    }
-   			});
-                        //res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines, page: "index"});  
+                        res.render("index", {data: data, apod_img_urls: apod_img_urls, status: status, headlines: headlines, page: "index"});    
                     }
                 });
             } else {
@@ -162,7 +132,7 @@ app.get("/index", function(req, res) {
             }
     });
 
-//    }, 0);
+    }, 2000);
     // res.render("index", {data: {launches: [{lsp: {infoURLs: []}, rocket: {familyname: ""}, missions: [], vidURLs: [], isostart: null, name: "", status: 1, location: {pads: [{name: ""}]}}]}, apod_img_urls: [], status: status, headlines: {articles: []}, page: "index"});
 });
 

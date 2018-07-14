@@ -41,7 +41,7 @@
                             <strong><%= launch.name %></strong>
                         </div> 
                         <div class="card-block">
-                            <p><strong>Launch Time:</strong> <%= convertToLocalTime(launch.isostart) %></p>
+                            <p><strong>Launch Time:</strong> <%= convertToLocalTime(launch.isostart) %> EDT</p>
                             <% if(launch.lsp != null) { %>
                                 <p><strong>Agency:</strong> <%= launch.lsp.name %></p>
                             <% } else { %>
@@ -93,11 +93,11 @@
                                             <div class="tab-pane fade show active" id="overview-<%=launch.id%>" role="tabpanel" aria-labelledby="overview-tab">
                                                 <p></p>
                                                <div class="modal-info-line">
-                                                   <strong>Window Start: </strong><p><%= convertToLocalTime(launch.isostart) %></p>
+                                                   <strong>Window Start: </strong><p><%= convertToLocalTime(launch.isostart) %> EDT</p>
                                                </div>
                                                <hr/>
                                                <div class="modal-info-line">
-                                                   <strong>Window End: </strong><p><%= convertToLocalTime(launch.isoend) %></p>
+                                                   <strong>Window End: </strong><p><%= convertToLocalTime(launch.isoend) %> EDT</p>
                                                </div>
                                                <hr/>
                                                <div class="modal-info-line">

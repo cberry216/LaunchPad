@@ -14,10 +14,10 @@ var update = function() {
     $(".modal-header").first().removeClass("in-process-launch");
     $(".launch-status").first().removeClass("in-process-launch");
   } else {
-    $("#countdown-timer").html("T + " + ((duration.days() >= 10) ? ((duration.days() * -1) + " d : ") : ("0" + (duration.days() * -1) + " d : ")) +
-                                        ((duration.hours() >= 10) ? ((duration.hours() * -1) + " h : ") : ("0" + (duration.hours() * -1) + " h : ")) +
-                                        ((duration.minutes() >= 10) ? ((duration.minutes() * -1) + " m : ") : ("0" + (duration.minutes() * -1) + " m : ")) +
-                                        ((duration.seconds() >= 10) ? ((duration.seconds() * -1) + " s"): ("0" + (duration.seconds() * -1) + " s")));
+    $("#countdown-timer").html("T + " + ((duration.days() <= -10) ? ((duration.days() * -1) + " d : ") : ("0" + (duration.days() * -1) + " d : ")) +
+                                        ((duration.hours() <= -10) ? ((duration.hours() * -1) + " h : ") : ("0" + (duration.hours() * -1) + " h : ")) +
+                                        ((duration.minutes() <= -10) ? ((duration.minutes() * -1) + " m : ") : ("0" + (duration.minutes() * -1) + " m : ")) +
+                                        ((duration.seconds() <= -10) ? ((duration.seconds() * -1) + " s"): ("0" + (duration.seconds() * -1) + " s")));
     $("#index-container").find(".card-header").first().addClass("in-process-launch");
     $("#index-container").find(".modal-header").first().addClass("in-process-launch");
     $("#index-container").find(".launch-status").first().addClass("in-process-launch");
@@ -65,6 +65,10 @@ function main() {
   $("#past-load-more").on("click", function(e) {
     e.preventDefault();
     $(".past-card-col:hidden").slice(0,8).slideDown();
+  });
+
+  $("#home-container").find($(".explore")).on("click", function(e) {
+    $("body").fadeOut(2000);
   });
 }
 

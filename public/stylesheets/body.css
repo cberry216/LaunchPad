@@ -97,6 +97,10 @@ nav {
     margin-top: 3%;
 }
 
+#home-container {
+    height: 70%;
+}
+
 /* Changes the Look of Navbar In Mobile */
 @media (max-width: 992px) {
     .dropdown-menu {
