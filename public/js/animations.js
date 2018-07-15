@@ -66,10 +66,6 @@ function main() {
     e.preventDefault();
     $(".past-card-col:hidden").slice(0,8).slideDown();
   });
-
-  $("#home-container").find($(".explore")).on("click", function(e) {
-    $("body").fadeOut(2000);
-  });
 }
 
 $(document).ready(main);
